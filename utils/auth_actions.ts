@@ -3,44 +3,54 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-import { createClient } from '@/utils/supabase/server'
+import {  createClient } from '@/utils/supabase/server'
+import { checkUserExists } from './supabase/checkUserExists'
 
 export async function login(formData: FormData) {
   const supabase = createClient()
-  console.log('client created!')
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const data = {
     email: formData.get('email') as string,
-    password: formData.get('password') as string,
+    password: formData.get('password') as string
   }
 
-  console.log('here is the data: ', data)
+  const userExists = await checkUserExists(data.email)
 
+  if (!userExists){
+    console.log('user exists.')
+    revalidatePath('/', 'layout')
+    redirect('/signup')
+  }
+
+  // sign user in 
   const { error } = await supabase.auth.signInWithPassword(data)
 
+  
   if (error) {
+    console.log('error: ', error)
     redirect('/error')
   }
 
   revalidatePath('/', 'layout')
-  redirect('/username')
+  redirect('/dashboard')
 }
 
 export async function signup(formData: FormData) {
   const supabase = createClient()
-  console.log('client created from signup!')
-
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
   const data = {
     email: formData.get('email') as string,
     password: formData.get('password') as string,
+    options: {
+      data: {
+        username: formData.get('username') as string
+      },
+    },
   }
-
-  console.log('here is the data: ', data)
 
   const { error } = await supabase.auth.signUp(data)
 
@@ -50,5 +60,5 @@ export async function signup(formData: FormData) {
   }
 
   revalidatePath('/', 'layout')
-  redirect('/username')
+  redirect('/dashboard')
 }
