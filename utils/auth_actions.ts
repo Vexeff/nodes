@@ -19,7 +19,7 @@ export async function login(formData: FormData) {
   const userExists = await checkUserExists(data.email)
 
   if (!userExists){
-    console.log('user exists.')
+    console.log('new user')
     revalidatePath('/', 'layout')
     redirect('/signup')
   }

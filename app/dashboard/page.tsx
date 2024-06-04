@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation'
-
 import { createClient } from '@/utils/supabase/server'
+import Dashboard from '@/components/dashboard/Dashboard'
 
-export default async function Dashboard() {
+export default async function UserProfile() {
   const supabase = createClient()
 
   // log user in
@@ -13,7 +13,11 @@ export default async function Dashboard() {
     redirect('/login')
   }
 
-  console.log('data: ', data)
+  //console.log('user data: ', data)
 
-  return <p>Hello {data.user.email}</p>
+  return (
+    <div>
+      <p>Hello, {data.user.user_metadata.username}!</p>
+      <Dashboard user_id={data.user.id} />
+    </div>)
 }
