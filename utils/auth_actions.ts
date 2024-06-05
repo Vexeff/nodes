@@ -6,6 +6,21 @@ import { redirect } from 'next/navigation'
 import {  createClient } from '@/utils/supabase/server'
 import { checkUserExists } from './supabase/checkUserExists'
 
+export async function logout(){
+  console.log('in log out')
+  const supabase = createClient()
+  
+  const { error } = await supabase.auth.signOut()
+
+  if (error) {
+    console.log('error: ', error)
+    redirect('/error')
+  }
+
+  revalidatePath('/', 'layout')
+  redirect('/')
+}
+
 export async function login(formData: FormData) {
   const supabase = createClient()
 

@@ -1,3 +1,5 @@
-export type DashboardProps = {
-    user_id: string
+import { User } from '@supabase/supabase-js';
+
+export type userData = {
+    user: User 
 }
