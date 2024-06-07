@@ -16,6 +16,7 @@ export interface Database {
           is_complete: boolean | null
           task: string | null
           user_id: string
+          xp_pts: number
         }
         Insert: {
           task_id?: number
@@ -23,6 +24,7 @@ export interface Database {
           is_complete?: boolean | null
           task?: string | null
           user_id: string
+          xp_pts: number
         }
         Update: {
           task_id?: number
@@ -30,6 +32,7 @@ export interface Database {
           is_complete?: boolean | null
           task?: string | null
           user_id?: string
+          xp_pts?: number
         }
       }
     }

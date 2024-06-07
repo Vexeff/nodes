@@ -9,7 +9,7 @@ export default function Home() {
         </div>
         <div className='flex flex-col place-items-center mt-3'>
           <Link  className='bg-green-300 rounded-3xl max-w-32' href="/login">
-            <p className=' text-center max-w-[90%]'>
+            <p className=' text-center max-w-[90%] dark:text-black'>
               Click to login!
             </p>
           </Link>
