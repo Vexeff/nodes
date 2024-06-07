@@ -1,11 +1,10 @@
 'use client'
 
 import { type User } from '@supabase/supabase-js'
-import ProgressBar from './Progressbar'
+import ProgressBar from './ProgressBar'
 import TodoList from './TodoList'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/utils/supabase/client'
-
 
 
 
@@ -133,7 +132,7 @@ const Dashboard = ( { user } : { user: User | null }) => {
           </div>
         </div>
 
-        <div className='flex flex-col'>
+        <div className='flex flex-col pb-10'>
           <p className='flex place-content-center'>
             Your completed to-dos:
           </p>

@@ -5,13 +5,13 @@ export default function LoginPage() {
     <main className='flex flex-col min-w-max min-h-screen'>
 
     <form className='flex flex-col place-items-center'>
-        <div className='flex flex-row mt-10 space-x-5'>
+        <div className='flex flex-col my-10 space-y-5 md:flex-row md:space-y-0 md:space-x-5'>
             <label className='flex' htmlFor="email">Email:</label>
             <input className='flex dark:text-black' id="email" name="email" type="email" required />
             <label className='flex'  htmlFor="password">Password:</label>
             <input className='flex dark:text-black'  id="password" name="password" type="password" required />
         </div>
-        <div className='flex flex-row mt-5 mb-10 space-x-5'>
+        <div className='flex flex-col mb-10 space-y-5 md:flex-row md:space-y-0 md:space-x-5'>
             <label className='flex'  htmlFor="username">Username:</label>
             <input className='flex dark:text-black'  id="username" name="username" type="username" required />
         </div>
