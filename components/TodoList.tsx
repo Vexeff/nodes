@@ -83,7 +83,7 @@ const TodoList = ( { user, type, xp_handler } : { user: User | null, type: strin
                 setNewTaskText(e.target.value)
             }}
             />
-            <button className="btn-black flex p-2 border-neutral-800 border-2 self-end" type="submit">
+            <button className="btn-black flex p-2 border-neutral-800 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black" type="submit">
                 Add
             </button>
         </form>}

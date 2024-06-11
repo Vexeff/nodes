@@ -1,6 +1,6 @@
 import { signup } from '../../utils/auth_actions'
 
-export default function LoginPage() {
+export default function SignupPage() {
   return (
     <main className='flex flex-col min-w-max min-h-screen'>
 
@@ -16,7 +16,7 @@ export default function LoginPage() {
             <input className='flex dark:text-black'  id="username" name="username" type="username" required />
         </div>
         <div className='flex flex-row space-x-5 '>
-            <button className='p-2 border-neutral-800 border-2' formAction={signup}>Sign up</button>
+            <button className='p-2 border-neutral-800 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black' formAction={signup}>Sign up</button>
         </div>
       
     </form>

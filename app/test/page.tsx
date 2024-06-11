@@ -12,6 +12,6 @@ export default function Test(){
             ))}
         </div> */
        // <ProgressBar />
-       <div>hi</div>
+       <div>hi you signed up</div>
     )
 }
