@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+
 const ProgressBar = ( { current_xp, max_xp, completion_rate }: 
     {  current_xp: number, max_xp: number, completion_rate: number }) => {
 

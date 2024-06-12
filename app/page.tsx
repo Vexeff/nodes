@@ -1,7 +1,39 @@
 import Link from 'next/link'
 import Leaderboard from '@/components/Leaderboard'
+import { createClient } from '@supabase/supabase-js';
+import { userScore } from "@/utils/types";
 
-export default function Home() {
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const serviceRoleSecret = process.env.SUPABASE_SERVICE_ROLE_KEY!;
+
+export default async function Home() {
+  const supabase = createClient(supabaseUrl, serviceRoleSecret, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: false,
+    },
+  });
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select(`
+        username,
+        user_xps (
+          total_xp
+        )
+      `)
+    .limit(10)
+    .order('user_xps(total_xp)', { ascending: false })
+    
+    // @ts-expect-error
+    let scores: userScore[] = data?.map((score) => ({'username': score.username, 'total_xp': score.user_xps.total_xp}))! 
+    
+    if (error){
+      scores = [{'username': 'Error fetching data', 'total_xp': 0}]
+    }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className='grid'>
@@ -17,7 +49,7 @@ export default function Home() {
         </div>
 
         <div className='flex flex-col place-items-center mt-10'>
-          <Leaderboard />
+          <Leaderboard scores={scores}/>
        </div>
       
       </div>
