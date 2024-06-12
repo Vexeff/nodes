@@ -9,7 +9,7 @@ export default function LoginPage() {
           <div className='flex flex-col my-10 space-y-5 md:flex-row md:space-y-0 md:space-x-5'>
               <label className='flex' htmlFor="email">Email:</label>
               <input className='flex dark:text-black' id="email" name="email" type="email" required />
-              <label className='flex'  htmlFor="password">Password:</label>
+              <label className='flex' htmlFor="password">Password:</label>
               <input className='flex dark:text-black'  id="password" name="password" type="password" required />
           </div>
 
