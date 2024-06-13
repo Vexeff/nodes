@@ -1,15 +1,11 @@
 "use client";
 
 import { userScore } from "@/utils/types";
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import Image from 'next/image'
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { PrimeReactContext } from 'primereact/api';
-import 'primereact/resources/themes/tailwind-light/theme.css';
 import 'primereact/resources/primereact.css';
-import Head from "next/head";
-
 
 export default function LeaderboardTable(  { scores } : { scores: userScore[] } ) {
     
@@ -28,10 +24,6 @@ export default function LeaderboardTable(  { scores } : { scores: userScore[] } 
     
     return(
         <div className="flex flex-col text-center justify-center w-full">
-            <Head>
-                <link id="theme-link" rel="stylesheet" href="/themes/lara-light-blue/theme.css" />
-            </Head>
-                    
             Leaderboard:
             <div className="flex flex-col my-5 py-2 max-w-full ">
                 <div className="z-0 max-w-full ">
