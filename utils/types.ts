@@ -5,6 +5,6 @@ export type userData = {
 }
 
 export type userScore = {
-    username: string, 
+    username: string | any, 
     total_xp: number
 }
