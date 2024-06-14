@@ -5,7 +5,7 @@ import ProgressBar from './ProgressBar'
 import TodoList from './TodoList'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/utils/supabase/client'
-
+import XPAnimation from './XPAnimation'
 
 
 const Dashboard = ( { user } : { user: User | null }) => {
@@ -17,9 +17,12 @@ const Dashboard = ( { user } : { user: User | null }) => {
     const [userLevel, setUserLevel] = useState(1)
     const [maxLevelXP, setMaxLevelXP] = useState(100)
     const [userCompletionRate, setUserCompletionRate] = useState(0)
+    const [showXPAnimation, setshowXPAnimation] = useState(false)
+    const [position, setPosition] = useState([0,0]) // State to save the position where you clicked
+
     
     async function levelUP( delta_xp: number , new_total_xp: number){
-        console.log('leveling up...')
+        
         try {
             const { data } = await supabase
                 .from('user_xps')
@@ -30,6 +33,7 @@ const Dashboard = ( { user } : { user: User | null }) => {
             } catch (error) {
                 console.log('error', error)
         }
+        
         getLevelMaxXP(userLevel + 1)     
         setUserLevel(userLevel + 1)
         setUserXP(delta_xp)
@@ -50,6 +54,8 @@ const Dashboard = ( { user } : { user: User | null }) => {
     }
 
     async function handle_xp(added_xp: number) {
+        
+
         const newTotalXP = userTotalXP + added_xp
         let newXP = userXP + added_xp 
         // do everything here
@@ -60,6 +66,10 @@ const Dashboard = ( { user } : { user: User | null }) => {
         } else{
             add_xp(newXP, newTotalXP)
         }
+        setshowXPAnimation(true);
+        setTimeout(() => { 
+            setshowXPAnimation(false);
+        }, 3000);
         setUserTotalXP(newTotalXP)
     }
     
@@ -73,7 +83,6 @@ const Dashboard = ( { user } : { user: User | null }) => {
         if (error){
             console.log('error', error)
         } else{
-            console.log('getting max level xp: ', data)
             setMaxLevelXP(data.max_xp)
         }
     }
@@ -121,26 +130,28 @@ const Dashboard = ( { user } : { user: User | null }) => {
                 {!loading && <ProgressBar current_xp={userXP} max_xp={maxLevelXP} completion_rate={userCompletionRate}/>}
                 </div>
             </div>
+            
+            {XPAnimation(showXPAnimation)}
       
-      <div className='flex flex-col min-w-full justify-around md:flex-row space-y-20 md:space-y-0'> 
-        <div className='flex flex-col'>
-          <p className='flex place-content-center'>
-            Your to-do list:
-          </p>
-          <div className='flex place-content-center'>
-            <TodoList user={user} type={'incomplete'} xp_handler={handle_xp} />
-          </div>
-        </div>
+            <div className='flex flex-col min-w-full justify-around md:flex-row space-y-20 md:space-y-0'> 
+                <div className='flex flex-col'>
+                <p className='flex place-content-center'>
+                    Your to-do list:
+                </p>
+                <div className='flex place-content-center'>
+                    <TodoList user={user} type={'incomplete'} xp_handler={handle_xp} />
+                </div>
+                </div>
 
-        <div className='flex flex-col pb-10'>
-          <p className='flex place-content-center'>
-            Your completed to-dos:
-          </p>
-          <div className='flex place-content-center'>
-            <TodoList user={user} type={'complete'} xp_handler={handle_xp} />
-          </div>
-        </div>
-      </div>
+                <div className='flex flex-col pb-10'>
+                <p className='flex place-content-center'>
+                    Your completed to-dos:
+                </p>
+                <div className='flex place-content-center'>
+                    <TodoList user={user} type={'complete'} xp_handler={handle_xp} />
+                </div>
+                </div>
+            </div>
         </div>
     )
 } 

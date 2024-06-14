@@ -1,7 +1,7 @@
 'use client'
 
 import { Database } from '@/utils/supabase/schema'
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { type User } from '@supabase/supabase-js'
 import { createClient } from '@/utils/supabase/client'
 
@@ -143,7 +143,7 @@ const Todo = ({ todo, onDelete, xp_handler }: { todo: Todos; onDelete: () => voi
             <div className='min-w-[20%]'>
             <input
                 className="cursor-pointer"
-                onChange={(e) => toggle()}
+                onChange={() => toggle()}
                 type="checkbox"
                 checked={isCompleted ? true : false}
             />

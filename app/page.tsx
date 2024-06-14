@@ -7,6 +7,8 @@ import { userScore } from "@/utils/types";
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const serviceRoleSecret = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
+export const revalidate = 60
+
 export default async function Home() {
   const supabase = createClient(supabaseUrl, serviceRoleSecret, {
     auth: {

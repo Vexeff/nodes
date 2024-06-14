@@ -12,8 +12,6 @@ const ProgressBar = ( { current_xp, max_xp, completion_rate }:
         backgroundColor: '#00695c',
         borderRadius: 'inherit'
       }
-
-    console.log('got new completion rate: ', completion_rate)
       
     return (
         <div className='h-20 bg-[#e0e0de] rounded-[50px] m-50 w-full relative'>
