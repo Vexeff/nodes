@@ -14,12 +14,12 @@ export default function LoginPage() {
           </div>
 
           <div className='flex flex-row space-x-5 '>
-              <button className='p-2 border-neutral-800 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black' formAction={login}>Log in</button>
+              <button className='p-2 border-neutral-800 dark:border-neutral-500 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black' formAction={login}>Log in</button>
           </div>
       </form>
 
       <div className='flex flex-col place-items-center mt-5 '>
-        <Link className='p-2 border-neutral-800 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black' href={'/signup'}>
+        <Link className='p-2 border-neutral-800 dark:border-neutral-500 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black' href={'/signup'}>
           Dont have an account? Sign up!
         </Link>
       </div>

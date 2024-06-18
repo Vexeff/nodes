@@ -93,12 +93,12 @@ const TodoList = ( { user, type, xp_handler } : { user: User | null, type: strin
                 setNewTaskText(e.target.value)
             }}
             />
-            <button className="btn-black flex p-2 border-neutral-800 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black" type="submit">
+            <button className="btn-black flex p-2 border-neutral-800 dark:border-neutral-500 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black" type="submit">
                 Add
             </button>
         </form>}
         {!!errorText && <Alert text={errorText} />}
-        <div className="bg-white shadow overflow-hidden rounded-md min-w-80 gap-2 my-2">
+        <div className="bg-white shadow overflow-visible rounded-md min-w-80 gap-2 my-2">
             <ul>
             {todos.map((todo) => (
                 <Todo key={todo.task_id} todo={todo} onDelete={() => deleteTodo(todo.task_id)} onOptions={() => optionsMenu(todo)} xp_handler={xp_handler} />
@@ -115,6 +115,7 @@ const Todo = ({ todo, onDelete, onOptions, xp_handler }: { todo: Todos; onDelete
     const supabase = createClient()
 
     const [isCompleted, setIsCompleted] = useState(todo.is_complete)
+    const [showOpts, setShowOpts] = useState(false)
 
     const toggle = async () => {
         try {
@@ -140,17 +141,17 @@ const Todo = ({ todo, onDelete, onOptions, xp_handler }: { todo: Todos; onDelete
 
     return (
         <li className="w-full block cursor-pointer hover:bg-gray-200 focus:outline-none focus:bg-gray-200 transition duration-150 ease-in-out border-t-gray-200 border-t-2">
-        <div className="flex flex-row px-4 py-4 sm:px-6 min-w-0 gap-2 my-2 max-w-80">
-            <div className="flex flex-row items-center w-[70%]">
-                <div className="text-sm leading-5 font-medium truncate w-[70%] dark:text-black">
+        <div className="flex flex-row flex-none px-4 py-4 sm:px-6 min-w-0 gap-2 my-2" onMouseLeave={() => setShowOpts(false)}>
+            <div className="flex flex-row items-center min-w-[70%] space-x-2">
+                <div className="text-sm leading-5 font-medium line-clamp-1 w-[70%] dark:text-black overflow-hidden">
                     {todo.task}
                 </div>
-                <div className="text-sm leading-5 font-mono truncate w-[30%] text-green-900">
+                <div className="text-sm leading-5 font-mono line-clamp-1 w-[30%] text-green-900">
                     {todo.xp_pts}xp
                 </div>
                 
             </div>
-            <div className='min-w-[30%] flex flex-row'>
+            <div className='min-w-[30%] flex flex-row justify-end'>
                 <input
                     className="flex self-baseline cursor-pointer"
                     onChange={() => toggle()}
@@ -175,13 +176,16 @@ const Todo = ({ todo, onDelete, onOptions, xp_handler }: { todo: Todos; onDelete
                     </svg>
                 </button>
 
+                <div className='relative'>
+
+               
                 <button
                 onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
-                    onOptions()
+                    setShowOpts(!showOpts)
                 }}
-                className="flex self-basline w-4 h-4 ml-2 border-2 hover:border-black rounded justify-center">
+                className='flex overflow-visible self-basline w-4 h-4 ml-2 border-2 hover:border-black rounded justify-center'>
                     <svg viewBox="0 0 24 24" id="three-dots" xmlns="http://www.w3.org/2000/svg" fill="#000000">
                         <g id="SVGRepo_iconCarrier"> <g id="_20x20_three-dots--grey" data-name="20x20/three-dots--grey" transform="translate(24) rotate(90)">
                         <rect id="Rectangle" width="24" height="24" fill="none"></rect> 
@@ -190,6 +194,21 @@ const Todo = ({ todo, onDelete, onOptions, xp_handler }: { todo: Todos; onDelete
                         <circle id="Oval-3" data-name="Oval" cx="1" cy="1" r="1" transform="translate(17 11)" stroke="#000000" strokeMiterlimit="10" strokeWidth="0.5"></circle> </g> </g>
                     </svg>
                 </button>
+
+                {showOpts && <ul className='absolute z-10 m-0 text-left top-5 -right-2.5 sm:-right-4 md:left-10 md:-top-6 w-36 text-sm bg-[#D6DBDC] dark:bg-black'>
+                    <li className='p-0.5 border-b-0 border-neutral-800 dark:border-neutral-500 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black'>
+                        <button onClick={() => console.log('add to calendar clicked')}>
+                            Add to Calendar
+                        </button>
+                    </li>
+                    <li className='p-0.5 border-neutral-800 dark:border-neutral-500 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black'>
+                        <button onClick={() => console.log('Option 2 clicked')}>
+                            Option 2
+                        </button>
+                    </li>
+                </ul>}
+               
+                </div>
             </div>
         </div>
         </li>

@@ -16,7 +16,7 @@ export default function SignupPage() {
             <input className='flex dark:text-black'  id="username" name="username" type="username" required />
         </div>
         <div className='flex flex-row space-x-5 '>
-            <button className='p-2 border-neutral-800 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black' formAction={signup}>Sign up</button>
+            <button className='p-2 border-neutral-800 dark:border-neutral-500 border-2 hover:bg-black hover:duration-300 hover:text-white dark:hover:bg-white dark:text-white dark:hover:text-black' formAction={signup}>Sign up</button>
         </div>
       
     </form>
