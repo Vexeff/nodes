@@ -3,7 +3,7 @@ https://nodes.vercel.app/
 ## Getting Started
 
 The goal of this project is to have a custom to-do list with an XP bar -- an attempt to gamify productivity! 
-Additionally, I wanted to explore sign up and log ins without a credentials provider -- using Supabase for this project. 
+<br> Additionally, I wanted to explore sign up and log ins without a credentials provider -- using Supabase for this project. 
 
 
 ### Current status
